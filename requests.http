@@ -1,0 +1,74 @@
+@baseUrl = http://localhost:3000/api
+@userId = 1
+
+### Health check
+GET http://localhost:3000/health
+
+### Portfolio - valor total, cash disponible y posiciones
+GET {{baseUrl}}/portfolio/{{userId}}
+
+### Buscar activos por ticker o nombre
+GET {{baseUrl}}/instruments/search?q=GGAL
+
+### Buscar activos por nombre
+GET {{baseUrl}}/instruments/search?q=Galicia
+
+### Listar órdenes del usuario
+GET {{baseUrl}}/orders/user/{{userId}}
+
+### Orden MARKET de compra por monto en pesos
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "instrumentId": 2,
+  "side": "BUY",
+  "type": "MARKET",
+  "amount": 50000
+}
+
+### Orden MARKET de compra por cantidad de acciones
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "instrumentId": 2,
+  "side": "BUY",
+  "type": "MARKET",
+  "quantity": 10
+}
+
+### Orden LIMIT de compra
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "instrumentId": 2,
+  "side": "BUY",
+  "type": "LIMIT",
+  "quantity": 5,
+  "price": 800
+}
+
+### Orden MARKET de venta
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "instrumentId": 2,
+  "side": "SELL",
+  "type": "MARKET",
+  "quantity": 3
+}
+
+### Cancelar orden LIMIT (solo estado NEW)
+PATCH {{baseUrl}}/orders/1/cancel
+Content-Type: application/json
+
+{
+  "userId": 1
+}

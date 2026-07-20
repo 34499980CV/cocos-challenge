@@ -1,0 +1,130 @@
+{
+  "info": {
+    "name": "Trading API",
+    "description": "Colección Postman para la API de portfolio, búsqueda y órdenes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000/api" },
+    { "key": "userId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/health"
+      }
+    },
+    {
+      "name": "Portfolio",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/portfolio/{{userId}}"
+      }
+    },
+    {
+      "name": "Search Instruments",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/instruments/search?q=GGAL",
+          "host": ["{{baseUrl}}"],
+          "path": ["instruments", "search"],
+          "query": [{ "key": "q", "value": "GGAL" }]
+        }
+      }
+    },
+    {
+      "name": "List Orders",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/orders/user/{{userId}}"
+      }
+    },
+    {
+      "name": "Create MARKET BUY (amount)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"instrumentId\": 2,\n  \"side\": \"BUY\",\n  \"type\": \"MARKET\",\n  \"amount\": 50000\n}"
+        },
+        "url": "{{baseUrl}}/orders"
+      }
+    },
+    {
+      "name": "Create LIMIT BUY",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"instrumentId\": 2,\n  \"side\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"quantity\": 5,\n  \"price\": 800\n}"
+        },
+        "url": "{{baseUrl}}/orders"
+      }
+    },
+    {
+      "name": "Create LIMIT SELL",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"instrumentId\": 2,\n  \"side\": \"SELL\",\n  \"type\": \"LIMIT\",\n  \"quantity\": 5,\n  \"price\": 11800\n}"
+        },
+        "url": "{{baseUrl}}/orders"
+      }
+    },
+    {
+      "name": "Create MARKET SELL",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"instrumentId\": 2,\n  \"side\": \"SELL\",\n  \"type\": \"MARKET\",\n  \"quantity\": 3\n}"
+        },
+        "url": "{{baseUrl}}/orders"
+      }
+    },
+    {
+      "name": "Create CASH_IN",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"instrumentId\": 2,\n  \"side\": \"CASH_IN\",\n  \"type\": \"MARKET\",\n  \"amount\": 1000\n}"
+        },
+        "url": "{{baseUrl}}/orders"
+      }
+    },
+    {
+      "name": "Create CASH_OUT",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"instrumentId\": 2,\n  \"side\": \"CASH_OUT\",\n  \"type\": \"MARKET\",\n  \"amount\": 500\n}"
+        },
+        "url": "{{baseUrl}}/orders"
+      }
+    },
+    {
+      "name": "Cancel Order",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1\n}"
+        },
+        "url": "{{baseUrl}}/orders/1/cancel"
+      }
+    }
+  ]
+}
